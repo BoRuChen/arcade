@@ -1,5 +1,6 @@
 import {Chess} from "./chess";
 import {useState} from "react";
+import {winJudgment} from "../../../model/gobang/winJudgment";
 
 export const Board = () => {
     let item = []
@@ -10,23 +11,57 @@ export const Board = () => {
         }
     }
     const [lists, setLists] = useState(item);
+    const [who, setWho] = useState(1);
+    const [isOver, setIsOver] = useState(false);
+    const [winner, setWinner] = useState(false);
 
-    const setItems = (col,raw,who) => {
-        console.log('testtt')
+    const setItems = (col,row,who) => {
         let newList = [...lists]
-        newList[col][raw] = who
+        newList[col][row] = who
         setLists(newList)
+
+        if(who === 1){
+            setWho(2)
+        }else {
+            setWho(1)
+        }
+        let message = winJudgment(lists,col,row,who)
+
+        if(message != null){
+            setIsOver(true)
+            setWinner(message)
+        }
+
+
+    }
+    const onResize = () => {
+        setLists(item)
+    }
+
+    const Massage = () => {
+      return <div className={`absolute top-0 left-0 z-10 w-full h-screen bg-gray-600/50 min-w-[600px]`}>
+          <div className={`flex items-center justify-center h-screen w-screen`}>
+              <div className={`z-20 w-[300px] h-[200px] flex items-center justify-center bg-white rounded-2xl shadow-inner shadow-xl`}>
+                  {winner}
+              </div>
+          </div>
+      </div>
     }
 
     return(
         <div className='flex-col'>
+            {
+                isOver? <Massage /> :''
+            }
             {lists.map((row,rowIndex) => {
                 return <div key={rowIndex} className={`flex ${rowIndex===0?"":"-mt-0.5"}`}>
                     {row.map((col,colIndex) => {
-                        return <Chess key={rowIndex+colIndex} col={colIndex} row={rowIndex} lists={lists} setItems={setItems}/>
+                        return <Chess key={rowIndex+colIndex} col={colIndex} row={rowIndex} lists={lists} setItems={setItems} who={who}/>
                     })}
                 </div>
             })}
+            <div className={`h-3`} />
+            <button onClick={onResize}>重製</button>
         </div>
     )
 }
