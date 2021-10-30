@@ -36,13 +36,24 @@ export const Board = () => {
     }
     const onResize = () => {
         setLists(item)
+        setIsOver(false)
     }
 
     const Massage = () => {
       return <div className={`absolute top-0 left-0 z-10 w-full h-screen bg-gray-600/50 min-w-[600px]`}>
           <div className={`flex items-center justify-center h-screen w-screen`}>
-              <div className={`z-20 w-[300px] h-[200px] flex items-center justify-center bg-white rounded-2xl shadow-inner shadow-xl`}>
-                  {winner}
+              <div className={`z-20 w-[300px] h-[200px] flex items-center justify-center bg-white rounded-2xl shadow-inner`}>
+                  <div className={`flex-col items-center justify-center`}>
+                      <p className={`text-center`}>{winner}</p>
+                      <div className={`mt-4`}>
+                          <button
+                              className={`px-5 py-2 rounded-full bg-blue-500 shadow-md hover:bg-blue-700 active:bg-blue-900 active:shadow-inner duration-300` }
+                              onClick={onResize}
+                          >
+                              再一場
+                          </button>
+                      </div>
+                  </div>
               </div>
           </div>
       </div>
@@ -61,7 +72,7 @@ export const Board = () => {
                 </div>
             })}
             <div className={`h-3`} />
-            <button onClick={onResize}>重製</button>
+            <div>目前下棋：{who===1?"白色":"黑色"}</div>
         </div>
     )
 }

@@ -9,9 +9,9 @@ export const Chess = ({row,col,lists,setItems,who}) => {
 
     const isHere = (col,row) => {
       if(lists[col][row] === 1){
-          return 'bg-white rounded-full'
+          return 'bg-white rounded-full border-[1px]  border-black'
       }else if(lists[col][row] === 2){
-          return 'bg-black rounded-full'
+          return 'bg-black rounded-full border-[1px]  border-black'
       }else {
           return ''
       }
@@ -27,10 +27,10 @@ export const Chess = ({row,col,lists,setItems,who}) => {
 
     return(
         <div className={`w-[30px] h-[30px] bg-yellow-700 border-2 border-black relative ${col===0?"":"-ml-0.5"}`}>
-            <div className={`w-[18px] h-[18px] absolute -top-2.5 -left-2.5 ${isHere(col,row)}`} onClick={() => isHave(col,row)?null:setItems(col,row,who)} />
-            {col===18?<div className={`w-[18px] h-[18px] absolute -top-2.5 -right-2.5 ${isHere(19,row)}`} onClick={() => isHave(19,row)?null:setItems(19,row,who)}/>:''}
-            {row===18?<div className={`w-[18px] h-[18px] absolute -bottom-2.5 -left-2.5 ${isHere(col,19)}`} onClick={() => isHave(col,19)?null:setItems(col,19,who)}/>:''}
-            {col===18 &&　row===18?<div className={`w-[18px] h-[18px] absolute -bottom-2.5 -right-2.5 ${isHere(19,19)}`} onClick={() => isHave(19,19)?null:setItems(19,19,who)}/>:''}
+            <div className={`w-[18px] h-[18px] absolute -top-2.5 -left-2.5 cursor-pointer ${isHere(col,row)}`} onClick={() => isHave(col,row)?null:setItems(col,row,who)} />
+            {col===18?<div className={`w-[18px] h-[18px] absolute -top-2.5 -right-2.5 cursor-pointer ${isHere(19,row)}`} onClick={() => isHave(19,row)?null:setItems(19,row,who)}/>:''}
+            {row===18?<div className={`w-[18px] h-[18px] absolute -bottom-2.5 -left-2.5 cursor-pointer ${isHere(col,19)}`} onClick={() => isHave(col,19)?null:setItems(col,19,who)}/>:''}
+            {col===18 &&　row===18?<div className={`w-[18px] h-[18px] absolute -bottom-2.5 -right-2.5 cursor-pointer ${isHere(19,19)}`} onClick={() => isHave(19,19)?null:setItems(19,19,who)}/>:''}
         </div>
     )
 }
